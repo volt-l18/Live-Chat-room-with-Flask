@@ -1,1 +1,1 @@
-# Reamme.md will be updated soon !
+# Readme.md will be updated soon !
