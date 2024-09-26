@@ -41,14 +41,25 @@ def home():
         elif code not in rooms:
             return render_template("home.html", title='Home', error="Room does not exist!", code=code, name=name)
 
-        print(room)
-        print(name)
         session["room"] = room
         session["name"] = name
 
         return redirect(url_for("rooom.room"))
 
     return render_template('home.html', title='Home')
+
+@socketio.on('message')
+def message(data):
+    room = session.get("room")
+    if room not in rooms:
+        return
+    content={
+        "name": session.get("name"),
+        "message": data["data"]
+    }
+    send(content,to=room)
+    rooms[room]["messages"].append(content)
+    print(f"{session.get('name')} said : {data['data']}")
 
 @socketio.on('connect')
 def connect(auth):
@@ -64,7 +75,7 @@ def connect(auth):
     rooms[room]["members"]+=1
     print(f"{name} joined room {room}")
 
-@socketio.on('disconnect')
+@socketio.on("disconnect")
 def disconnect():
     room = session.get("room")
     name = session.get("name")
@@ -74,8 +85,5 @@ def disconnect():
         rooms[room]["members"] -= 1
         if rooms[room]["members"] <= 0:
             del rooms[room]
-            print(f"{room} destroyed")
     send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left the room {room}")
-
-    return render_template('home.html', title='Home')
