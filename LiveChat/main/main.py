@@ -2,7 +2,7 @@ import random
 
 from flask import render_template, Blueprint, request, session, redirect, url_for
 from string import ascii_uppercase
-from flask_socketio import join_room, leave_room, send, SocketIO
+from flask_socketio import join_room, leave_room, send, SocketIO, emit
 from LiveChat import socketio
 
 main = Blueprint('main' , __name__)
