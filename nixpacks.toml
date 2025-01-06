@@ -1,2 +1,2 @@
 [start]
-cmd = "gunicorn Run:app"
+cmd = "gunicorn run:app"
