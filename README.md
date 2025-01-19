@@ -1,7 +1,7 @@
 # LiveChat
 
 ## About the project:
-This is a Live chating/messaging application created with in Flask and FlaskWebSockeIO can create room wchich can be accessed by multiple people at the same time and provide seamless communication
+This is a Live chating/messaging application created with in Flask and FlaskWebSocketIO can create room wchich can be accessed by multiple people at the same time and provide seamless communication
 <br>
 <hr>
 
